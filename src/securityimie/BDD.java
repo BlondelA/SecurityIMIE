@@ -22,6 +22,7 @@ public class BDD {
     Connection con = null;
     ResultSet insert = null;
     ResultSet mail = null;
+    ResultSet user = null;
     
     public Connection getConnection(){
         String url = new String("jdbc:mysql://localhost/securityimie");
@@ -80,7 +81,7 @@ public class BDD {
             }
         }
         catch (SQLException ex) { 
-            System.out.println ("Erreur ta mère");            
+            System.out.println ("Erreur");            
             ex.printStackTrace();        
         }
         return mail;
@@ -91,25 +92,54 @@ public class BDD {
         
         try{
         Statement stm = con.createStatement(); 
-        System.out.println("SELECT mail, mdp FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\");");
-        mail = stm.executeQuery("SELECT mail, mdp FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
+        mail = stm.executeQuery("SELECT mail, mdp, id FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
         //System.out.println(mail);
         int i = 0;
+        String id;
+        int userid;
             while(mail.next()){
+                id = mail.getString("id");
+                userid = Integer.parseInt(id); 
+                conn.Utilisateur = userid;
+                Compte compte = new Compte(userid);
                 i = i +1;
             }
+            
             
             if(i != 1){
                 JOptionPane.showMessageDialog(null,"Mail ou mot de passe invalide.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
             }else{
-                JOptionPane.showMessageDialog(null,"Bienvenue.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Bienvenue.", "", JOptionPane.ERROR_MESSAGE);   
             }
         }
         catch (SQLException ex) { 
-            System.out.println ("Erreur ta mère");            
+            System.out.println ("Erreur");            
             ex.printStackTrace();        
         }
         return mail;
         
+    }
+    
+    public ResultSet getUser(Compte com){ 
+
+        try{
+        Statement stm = con.createStatement(); 
+        user = stm.executeQuery("SELECT mail, mdp, id, tel, nom, prenom FROM user WHERE id = \""+com.user+"\";");
+        
+        while (user.next()){ 
+            com.mail = user.getString("mail");
+            com.mdp = user.getString("mdp");
+            com.nom = user.getString("nom");
+            com.prenom = user.getString("prenom");
+            com.tel = user.getString("tel");
+        }
+        
+        }
+        catch (SQLException ex) { 
+            System.out.println ("Erreur");            
+            ex.printStackTrace();        
+        }
+        return user;
+       
     }
 }
