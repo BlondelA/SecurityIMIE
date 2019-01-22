@@ -109,6 +109,7 @@ public class BDD {
             if(i != 1){
                 JOptionPane.showMessageDialog(null,"Mail ou mot de passe invalide.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
             }else{
+                conn.dispose();
                 JOptionPane.showMessageDialog(null,"Bienvenue.", "", JOptionPane.ERROR_MESSAGE);   
             }
         }
@@ -142,4 +143,20 @@ public class BDD {
         return user;
        
     }
+    
+    public ResultSet modif(Compte com){ 
+ 
+        try{
+        Statement stm = con.createStatement(); 
+        stm.executeUpdate("UPDATE user SET mail = \""+com.mail+"\", nom = \""+com.nom+"\" , prenom = \""+com.prenom+"\" , tel = \""+com.tel+"\" WHERE id =" +com.user+";");
+        System.out.println ("modifié");
+        }
+        catch (SQLException ex) { 
+            JOptionPane.showMessageDialog(null,"Une erreur s'est produite, la modification n'a pas été effectuée", "ERREUR", JOptionPane.ERROR_MESSAGE);           
+            ex.printStackTrace();        
+        }
+        return user;
+        
+    }
+            
 }

@@ -17,7 +17,7 @@ public class Main {
     
     public static void main(String[] args) {
         // TODO code application logic here*
-        //System.out.println("SELECT mail, mdp FROM user WHERE mail = \""+"mail"+"\", mdp = \""+"mdp"+"\");");
+        //System.out.println("UPDATE user SET mail = \""+"e"+"\", nom = \""+"r"+"\" , prenom = \""+"z"+"\" , tel = \""+"a"+"\" WHERE pil =" +"1"+";");
         BDD bdd = new BDD();
         bdd.getConnection();
         Connexion connexion = new Connexion();

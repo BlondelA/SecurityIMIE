@@ -175,6 +175,8 @@ public class Inscription extends javax.swing.JFrame {
 
     private void btRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetourActionPerformed
         // TODO add your handling code here:
+        dispose();
+        Connexion connexion = new Connexion();
     }//GEN-LAST:event_btRetourActionPerformed
 
     private void btInscritionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInscritionActionPerformed

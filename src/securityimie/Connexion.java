@@ -148,12 +148,15 @@ public class Connexion extends javax.swing.JFrame {
             BDD bdd = new BDD();
             bdd.getConnection();
             bdd.getMdp(this);
+            
+            
         }
                 
     }//GEN-LAST:event_btconnectActionPerformed
 
     private void btinscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btinscriptionActionPerformed
         // TODO add your handling code here:
+        dispose();
         Inscription inscription = new Inscription();
     }//GEN-LAST:event_btinscriptionActionPerformed
 
