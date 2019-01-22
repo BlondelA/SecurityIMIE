@@ -23,6 +23,7 @@ public class BDD {
     ResultSet insert = null;
     ResultSet mail = null;
     ResultSet user = null;
+    ResultSet role = null;
     
     public Connection getConnection(){
         String url = new String("jdbc:mysql://localhost/securityimie");
@@ -49,7 +50,7 @@ public class BDD {
      
         try{
         Statement stm = con.createStatement(); 
-        stm.executeUpdate("INSERT INTO user (id, mail, mdp, nom, prenom, tel) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\");");
+        stm.executeUpdate("INSERT INTO user (id, mail, mdp, nom, prenom, tel, role) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\", 2);");
         System.out.println ("envoyé");
         inscr.dispose();
         JOptionPane.showMessageDialog(null,"Inscription confirmée", "", JOptionPane.INFORMATION_MESSAGE);
@@ -92,16 +93,22 @@ public class BDD {
         
         try{
         Statement stm = con.createStatement(); 
-        mail = stm.executeQuery("SELECT mail, mdp, id FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
+        mail = stm.executeQuery("SELECT mail, mdp, id, role FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
         //System.out.println(mail);
         int i = 0;
         String id;
+        String role;
         int userid;
+        int roleid;
             while(mail.next()){
                 id = mail.getString("id");
                 userid = Integer.parseInt(id); 
                 conn.Utilisateur = userid;
-                Compte compte = new Compte(userid);
+                
+                role = mail.getString("role");
+                roleid = Integer.parseInt(role);
+                
+                Compte compte = new Compte(userid, roleid);
                 i = i +1;
             }
             
@@ -125,7 +132,7 @@ public class BDD {
 
         try{
         Statement stm = con.createStatement(); 
-        user = stm.executeQuery("SELECT mail, mdp, id, tel, nom, prenom FROM user WHERE id = \""+com.user+"\";");
+        user = stm.executeQuery("SELECT mail, mdp, id, tel, nom, prenom, role FROM user WHERE id = \""+com.user+"\";");
         
         while (user.next()){ 
             com.mail = user.getString("mail");
@@ -141,6 +148,24 @@ public class BDD {
             ex.printStackTrace();        
         }
         return user;
+       
+    }
+    public ResultSet getRole(Compte com){ 
+
+        try{
+        Statement stm = con.createStatement(); 
+        role = stm.executeQuery("SELECT role FROM role WHERE id = "+com.roleid+";");
+        
+        while (role.next()){ 
+            com.role = role.getString("role");
+        }
+        
+        }
+        catch (SQLException ex) { 
+            System.out.println ("Erreur");            
+            ex.printStackTrace();        
+        }
+        return role;
        
     }
     
