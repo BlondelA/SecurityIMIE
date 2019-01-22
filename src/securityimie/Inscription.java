@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 public class Inscription extends javax.swing.JFrame {
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private static final String MDP_PATTERN = "^[_A-Za-z0-9-\\+]$";
     
     public String mail = new String();
     public String mdp = new String();

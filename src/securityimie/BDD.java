@@ -86,4 +86,30 @@ public class BDD {
         return mail;
         
     }
+    
+    public ResultSet getMdp(Connexion conn){ 
+        
+        try{
+        Statement stm = con.createStatement(); 
+        System.out.println("SELECT mail, mdp FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\");");
+        mail = stm.executeQuery("SELECT mail, mdp FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
+        //System.out.println(mail);
+        int i = 0;
+            while(mail.next()){
+                i = i +1;
+            }
+            
+            if(i != 1){
+                JOptionPane.showMessageDialog(null,"Mail ou mot de passe invalide.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
+            }else{
+                JOptionPane.showMessageDialog(null,"Bienvenue.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        catch (SQLException ex) { 
+            System.out.println ("Erreur ta mère");            
+            ex.printStackTrace();        
+        }
+        return mail;
+        
+    }
 }

@@ -60,8 +60,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tfmdp" pref="253" max="32767" attributes="0"/>
-                                      <Component id="tfmail" max="32767" attributes="0"/>
+                                      <Component id="tfMail" pref="253" max="32767" attributes="0"/>
+                                      <Component id="ptfMdp" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -78,15 +78,15 @@
                   <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tfmail" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfMail" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tfmdp" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ptfMdp" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btconnect" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btinscription" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -121,9 +121,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btconnectActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfmail">
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfmdp">
+        <Component class="javax.swing.JTextField" name="tfMail">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -134,6 +132,8 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="mdp :"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="ptfMdp">
         </Component>
       </SubComponents>
     </Container>

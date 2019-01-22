@@ -5,6 +5,8 @@
  */
 package securityimie;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author antoi
@@ -14,8 +16,14 @@ public class Connexion extends javax.swing.JFrame {
     /**
      * Creates new form Connexion
      */
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        
+    public String mail = new String();
+    public String mdp = new String();
+    
     public Connexion() {
         initComponents();
+        
         this.setVisible(true);
     }
 
@@ -32,10 +40,10 @@ public class Connexion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btinscription = new javax.swing.JButton();
         btconnect = new javax.swing.JButton();
-        tfmail = new javax.swing.JTextField();
-        tfmdp = new javax.swing.JTextField();
+        tfMail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        ptfMdp = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,8 +91,8 @@ public class Connexion extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfmdp, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                    .addComponent(tfmail))))))
+                                    .addComponent(tfMail, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                    .addComponent(ptfMdp))))))
                 .addGap(0, 135, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,13 +102,13 @@ public class Connexion extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfmdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(ptfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btconnect)
                     .addComponent(btinscription))
@@ -123,6 +131,25 @@ public class Connexion extends javax.swing.JFrame {
 
     private void btconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btconnectActionPerformed
         // TODO add your handling code here:
+        
+        String password = new String(ptfMdp.getPassword());
+        
+        if (!tfMail.getText().matches(EMAIL_PATTERN)) {
+            JOptionPane.showMessageDialog(null,"L'adresse mail n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+
+        }else if (password == ""){
+            JOptionPane.showMessageDialog(null,"Le mot de passe n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+        }else if (password.length()<8){
+            JOptionPane.showMessageDialog(null,"Le mot de passe doit contenir 8 charactères minimum)", "Attention", JOptionPane.WARNING_MESSAGE);
+        }else{
+            mail = tfMail.getText();
+            mdp = password;
+            
+            BDD bdd = new BDD();
+            bdd.getConnection();
+            bdd.getMdp(this);
+        }
+                
     }//GEN-LAST:event_btconnectActionPerformed
 
     private void btinscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btinscriptionActionPerformed
@@ -172,7 +199,7 @@ public class Connexion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tfmail;
-    private javax.swing.JTextField tfmdp;
+    private javax.swing.JPasswordField ptfMdp;
+    private javax.swing.JTextField tfMail;
     // End of variables declaration//GEN-END:variables
 }
