@@ -219,8 +219,16 @@ public class Inscription extends javax.swing.JFrame {
                              return;
                 }
 
+                String myPassword = password;
+        
+                // Generate Salt. The generated value can be stored in DB. 
+                String salt = "EqdmPh53c9x33EygXpTpcoJvc4VXLK";
+        
+                // Protect user's password. The generated value can be stored in DB.
+                String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+                
                 mail = tfMail.getText();
-                mdp = password;
+                mdp = mySecurePassword;
                 nom = tfNom.getText();
                 prenom = tfPrenom.getText();
                 tel = tfTel.getText();

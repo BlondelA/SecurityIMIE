@@ -282,11 +282,19 @@ public class Compte extends javax.swing.JFrame {
         
         }else {
         
+        String myPassword = password;
+        
+        // Generate Salt. The generated value can be stored in DB. 
+        String salt = "EqdmPh53c9x33EygXpTpcoJvc4VXLK";
+        
+        // Protect user's password. The generated value can be stored in DB.
+        String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+            
         nom = tfNom.getText();
         prenom = tfPrenom.getText();
         mail = tfMail.getText();
         tel = tfTel.getText();
-        mdp = password;
+        mdp = mySecurePassword;
         
         BDD bdd = new BDD();
         bdd.getConnection();

@@ -50,7 +50,7 @@ public class BDD {
      
         try{
         Statement stm = con.createStatement(); 
-        stm.executeUpdate("INSERT INTO user (id, mail, mdp, nom, prenom, tel, role) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\", 2);");
+        stm.executeUpdate("INSERT INTO user (id, mail, mdp, nom, prenom, tel, role) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\", 3);");
         System.out.println ("envoyé");
         inscr.dispose();
         JOptionPane.showMessageDialog(null,"Inscription confirmée", "", JOptionPane.INFORMATION_MESSAGE);

@@ -148,8 +148,17 @@ public class Connexion extends javax.swing.JFrame {
         }else if (password.length()<8){
             JOptionPane.showMessageDialog(null,"Le mot de passe doit contenir 8 charactères minimum)", "Attention", JOptionPane.WARNING_MESSAGE);
         }else{
+            
+        String myPassword = password;
+        
+        // Generate Salt. The generated value can be stored in DB. 
+        String salt = "EqdmPh53c9x33EygXpTpcoJvc4VXLK";
+        
+        // Protect user's password. The generated value can be stored in DB.
+        String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+            
             mail = tfMail.getText();
-            mdp = password;
+            mdp = mySecurePassword;
             
             BDD bdd = new BDD();
             bdd.getConnection();
