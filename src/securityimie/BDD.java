@@ -169,6 +169,39 @@ public class BDD {
        
     }
     
+        public ResultSet getAllUsers(ListeUser lu, int roleid){ 
+
+        try{
+        Statement stm = con.createStatement(); 
+        user = stm.executeQuery("SELECT mail, tel, nom, prenom, role FROM user ;");
+        
+        
+        lu.model.getDataVector().clear();
+        
+        while (user.next()){ 
+            String rol = user.getString("role");
+            int egaux = Integer.parseInt(rol);
+            
+           if(egaux == roleid){
+                
+                lu.rowData[0] = user.getString("nom");
+                lu.rowData[1] = user.getString("prenom");
+                lu.rowData[2] = user.getString("mail");
+                lu.rowData[3] = user.getString("tel");
+                lu.model.addRow(lu.rowData);
+           }
+        }
+        
+        }
+        catch (SQLException ex) { 
+            System.out.println ("Erreur");            
+            ex.printStackTrace();        
+        }
+        return role;
+       
+    }
+    
+    
     public ResultSet modif(Compte com){ 
  
         try{

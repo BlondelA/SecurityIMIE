@@ -80,9 +80,13 @@ public class Compte extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Bienvenue");
 
+        btValider.setBackground(new java.awt.Color(102, 102, 102));
+        btValider.setForeground(new java.awt.Color(255, 255, 255));
         btValider.setText("Modifier");
         btValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +94,8 @@ public class Compte extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Déconnexion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +119,14 @@ public class Compte extends javax.swing.JFrame {
 
         status.setText("Status :");
 
+        btListUser.setBackground(new java.awt.Color(102, 102, 102));
+        btListUser.setForeground(new java.awt.Color(255, 255, 255));
         btListUser.setText("Liste des utilisateurs");
+        btListUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -287,6 +300,11 @@ public class Compte extends javax.swing.JFrame {
         pfMdpV.setText(mdp);
         }
     }//GEN-LAST:event_btValiderActionPerformed
+
+    private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
+        // TODO add your handling code here:
+        ListeUser listeuser = new ListeUser(roleid);
+    }//GEN-LAST:event_btListUserActionPerformed
 
     /**
      * @param args the command line arguments

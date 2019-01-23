@@ -47,9 +47,13 @@ public class Connexion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Connexion");
 
+        btinscription.setBackground(new java.awt.Color(102, 102, 102));
+        btinscription.setForeground(new java.awt.Color(255, 255, 255));
         btinscription.setText("Inscription");
         btinscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +61,8 @@ public class Connexion extends javax.swing.JFrame {
             }
         });
 
+        btconnect.setBackground(new java.awt.Color(102, 102, 102));
+        btconnect.setForeground(new java.awt.Color(255, 255, 255));
         btconnect.setText("Connexion");
         btconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

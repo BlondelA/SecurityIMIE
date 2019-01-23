@@ -56,6 +56,7 @@ public class Inscription extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setPreferredSize(new java.awt.Dimension(545, 511));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -71,6 +72,8 @@ public class Inscription extends javax.swing.JFrame {
             }
         });
 
+        btInscrition.setBackground(new java.awt.Color(102, 102, 102));
+        btInscrition.setForeground(new java.awt.Color(255, 255, 255));
         btInscrition.setText("Inscription");
         btInscrition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +81,8 @@ public class Inscription extends javax.swing.JFrame {
             }
         });
 
+        btRetour.setBackground(new java.awt.Color(102, 102, 102));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
