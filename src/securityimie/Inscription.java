@@ -21,6 +21,7 @@ public class Inscription extends javax.swing.JFrame {
     public String nom = new String();
     public String prenom = new String();
     public String tel = new String();
+    public String sel = new String();
     
     /**
      * Creates new form Inscription
@@ -222,7 +223,8 @@ public class Inscription extends javax.swing.JFrame {
                 String myPassword = password;
         
                 // Generate Salt. The generated value can be stored in DB. 
-                String salt = "EqdmPh53c9x33EygXpTpcoJvc4VXLK";
+                //String salt = "EqdmPh53c9x33EygXpTpcoJvc4VXLK";
+                String salt = PasswordUtils.getSalt(30);
         
                 // Protect user's password. The generated value can be stored in DB.
                 String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
@@ -232,10 +234,11 @@ public class Inscription extends javax.swing.JFrame {
                 nom = tfNom.getText();
                 prenom = tfPrenom.getText();
                 tel = tfTel.getText();
+                sel = salt;
 
                 BDD bdd = new BDD();
                 bdd.getConnection();
-                bdd.getMail(this);
+                bdd.getMail(mail);
                 if(bdd.MailValide == true){
                     bdd.insert(this);
                 }

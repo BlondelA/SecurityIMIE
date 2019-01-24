@@ -50,9 +50,10 @@ public class BDD {
      
         try{
         Statement stm = con.createStatement(); 
-        stm.executeUpdate("INSERT INTO user (id, mail, mdp, nom, prenom, tel, role) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\", 3);");
+        stm.executeUpdate("INSERT INTO user (id, mail, mdp, sel, nom, prenom, tel, role) VALUES ("+null+",\""+inscr.mail+"\",\""+inscr.mdp+"\",\""+inscr.sel+"\",\""+inscr.nom+"\",\""+inscr.prenom+"\",\""+inscr.tel+"\", 3);");
         System.out.println ("envoyé");
         inscr.dispose();
+        Connexion conn = new Connexion();
         JOptionPane.showMessageDialog(null,"Inscription confirmée", "", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (SQLException ex) { 
@@ -63,11 +64,11 @@ public class BDD {
         
     }
     
-    public ResultSet getMail(Inscription inscr){ 
+    public ResultSet getMail(String adrmail){ 
         
         try{
         Statement stm = con.createStatement(); 
-        mail = stm.executeQuery("SELECT mail FROM user WHERE mail = \""+inscr.mail+"\";");
+        mail = stm.executeQuery("SELECT mail FROM user WHERE mail = \""+adrmail+"\";");
         System.out.println(mail);
         int i = 0;
             while(mail.next()){
@@ -91,9 +92,21 @@ public class BDD {
     
     public ResultSet getMdp(Connexion conn){ 
         
+        String mySecurePassword = "";
+        
         try{
-        Statement stm = con.createStatement(); 
-        mail = stm.executeQuery("SELECT mail, mdp, id, role FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+conn.mdp+"\";");
+        Statement stm = con.createStatement();
+        
+        mail = stm.executeQuery("SELECT mail, sel FROM user WHERE mail = \""+conn.mail+"\";");
+        while(mail.next()){
+            String myPassword = conn.mdp;
+            // Generate Salt. The generated value can be stored in DB. 
+            String salt = mail.getString("sel");
+            // Protect user's password. The generated value can be stored in DB.
+            mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+        }
+        
+        mail = stm.executeQuery("SELECT mail, mdp, id, role FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+mySecurePassword+"\";");
         //System.out.println(mail);
         int i = 0;
         String id;
@@ -117,7 +130,6 @@ public class BDD {
                 JOptionPane.showMessageDialog(null,"Mail ou mot de passe invalide.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
             }else{
                 conn.dispose();
-                JOptionPane.showMessageDialog(null,"Bienvenue.", "", JOptionPane.ERROR_MESSAGE);   
             }
         }
         catch (SQLException ex) { 
@@ -173,7 +185,7 @@ public class BDD {
 
         try{
         Statement stm = con.createStatement(); 
-        user = stm.executeQuery("SELECT mail, tel, nom, prenom, role FROM user ;");
+        user = stm.executeQuery("SELECT tel, nom, prenom, role FROM user ;");
         
         
         lu.model.getDataVector().clear();
@@ -186,8 +198,8 @@ public class BDD {
                 
                 lu.rowData[0] = user.getString("nom");
                 lu.rowData[1] = user.getString("prenom");
-                lu.rowData[2] = user.getString("mail");
-                lu.rowData[3] = user.getString("tel");
+                //lu.rowData[2] = user.getString("mail");
+                lu.rowData[2] = user.getString("tel");
                 lu.model.addRow(lu.rowData);
            }
         }
@@ -206,11 +218,31 @@ public class BDD {
  
         try{
         Statement stm = con.createStatement(); 
-        stm.executeUpdate("UPDATE user SET mail = \""+com.mail+"\", nom = \""+com.nom+"\" , prenom = \""+com.prenom+"\" , tel = \""+com.tel+"\" WHERE id =" +com.user+";");
+        if(com.sel == null){
+            stm.executeUpdate("UPDATE user SET mail = \""+com.mail+"\", nom = \""+com.nom+"\" , prenom = \""+com.prenom+"\" , tel = \""+com.tel+"\" WHERE id =" +com.user+";");
+        }else{
+            stm.executeUpdate("UPDATE user SET mail = \""+com.mail+"\", nom = \""+com.nom+"\" , prenom = \""+com.prenom+"\" , tel = \""+com.tel+"\" , mdp = \""+com.mdp+"\" , sel = \""+com.sel+"\" WHERE id =" +com.user+";");
+        }
         System.out.println ("modifié");
+        JOptionPane.showMessageDialog(null,"Les modifications ont été enregistrés", "", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (SQLException ex) { 
             JOptionPane.showMessageDialog(null,"Une erreur s'est produite, la modification n'a pas été effectuée", "ERREUR", JOptionPane.ERROR_MESSAGE);           
+            ex.printStackTrace();        
+        }
+        return user;
+        
+    }
+    
+    public ResultSet delete(int id){ 
+        
+        try{ 
+        Statement stm = con.createStatement(); 
+        stm.executeUpdate("DELETE FROM user WHERE id ="+id+";");
+        JOptionPane.showMessageDialog(null,"Votre compte ainsi que toutes vos données ont été éffacées", "", JOptionPane.INFORMATION_MESSAGE );  
+        }
+        catch (SQLException ex) { 
+            JOptionPane.showMessageDialog(null,"Une erreur s'est produite, la suppression n'a pas été effectuée", "ERREUR", JOptionPane.ERROR_MESSAGE);           
             ex.printStackTrace();        
         }
         return user;

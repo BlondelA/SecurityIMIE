@@ -22,7 +22,7 @@ public class ListeUser extends javax.swing.JFrame {
      */
     
     public JTable table = new JTable();
-    public Object[] rowData = new Object[4];
+    public Object[] rowData = new Object[3];
     public DefaultTableModel model = new DefaultTableModel();
                
     public String[][] tableauSimpleID = new String[][] {};
@@ -36,11 +36,10 @@ public class ListeUser extends javax.swing.JFrame {
         
         initComponents();
 
-        Object[] columnsName = new Object[4];
+        Object[] columnsName = new Object[3];
         columnsName[0] = "NOM";
         columnsName[1] = "PRENOM";
-        columnsName[2] = "MAIL";
-        columnsName[3] = "TEL";
+        columnsName[2] = "TEL";
         model.setColumnIdentifiers(columnsName);    
         
         table.setModel(model);
