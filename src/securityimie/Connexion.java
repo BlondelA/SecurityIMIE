@@ -44,6 +44,7 @@ public class Connexion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ptfMdp = new javax.swing.JPasswordField();
+        btOublie = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +75,15 @@ public class Connexion extends javax.swing.JFrame {
 
         jLabel3.setText("mdp :");
 
+        btOublie.setBackground(new java.awt.Color(153, 153, 153));
+        btOublie.setText("Oublié ?");
+        btOublie.setBorder(null);
+        btOublie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOublieActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,8 +108,10 @@ public class Connexion extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tfMail, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                    .addComponent(ptfMdp))))))
-                .addGap(0, 135, Short.MAX_VALUE))
+                                    .addComponent(ptfMdp))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btOublie)))
+                .addGap(0, 57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +125,9 @@ public class Connexion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(ptfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(ptfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btOublie))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btconnect)
                     .addComponent(btinscription))
@@ -154,7 +167,7 @@ public class Connexion extends javax.swing.JFrame {
             
             BDD bdd = new BDD();
             bdd.getConnection();
-            bdd.getMdp(this);
+            bdd.getConnectUser(this);
             
             
         }
@@ -166,6 +179,11 @@ public class Connexion extends javax.swing.JFrame {
         dispose();
         Inscription inscription = new Inscription();
     }//GEN-LAST:event_btinscriptionActionPerformed
+
+    private void btOublieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOublieActionPerformed
+        // TODO add your handling code here:
+        MDPoublie mdpoublie = new MDPoublie();
+    }//GEN-LAST:event_btOublieActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +221,7 @@ public class Connexion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btOublie;
     private javax.swing.JButton btconnect;
     private javax.swing.JButton btinscription;
     private javax.swing.JLabel jLabel1;

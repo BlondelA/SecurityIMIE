@@ -241,6 +241,8 @@ public class Inscription extends javax.swing.JFrame {
                 bdd.getMail(mail);
                 if(bdd.MailValide == true){
                     bdd.insert(this);
+                }else{
+                    JOptionPane.showMessageDialog(null,"L'adresse mail est déjà utilisée", "ERREUR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

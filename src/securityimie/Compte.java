@@ -27,16 +27,20 @@ public class Compte extends javax.swing.JFrame {
     public String sel;
     public int roleid;
     public String role;
+    public String confirmMDP;
     
     public Compte(int usr, int rolid) {
         initComponents();
         user = usr;
         roleid = rolid;
         
+        btValider.setVisible(false);
         pfMdp.setVisible(false);
         pfMdpV.setVisible(false);
+        pfAncienMDP.setVisible(false);
         jLabel6.setVisible(false);
         jLabel7.setVisible(false);
+        jLabel9.setVisible(false);
         
         BDD bdd = new BDD();
         bdd.getConnection();
@@ -72,7 +76,7 @@ public class Compte extends javax.swing.JFrame {
         pfMdpV = new javax.swing.JPasswordField();
         tfTel = new javax.swing.JTextField();
         tfMail = new javax.swing.JTextField();
-        btValider = new javax.swing.JButton();
+        btModifier = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -83,8 +87,10 @@ public class Compte extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
         btListUser = new javax.swing.JButton();
-        btMDP = new javax.swing.JButton();
         btSuppr = new javax.swing.JButton();
+        btValider = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        pfAncienMDP = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,12 +99,20 @@ public class Compte extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Bienvenue");
 
-        btValider.setBackground(new java.awt.Color(102, 102, 102));
-        btValider.setForeground(new java.awt.Color(255, 255, 255));
-        btValider.setText("Modifier");
-        btValider.addActionListener(new java.awt.event.ActionListener() {
+        tfNom.setEditable(false);
+
+        tfPrenom.setEditable(false);
+
+        tfTel.setEditable(false);
+
+        tfMail.setEditable(false);
+
+        btModifier.setBackground(new java.awt.Color(102, 102, 102));
+        btModifier.setForeground(new java.awt.Color(255, 255, 255));
+        btModifier.setText("Modifier");
+        btModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btValiderActionPerformed(evt);
+                btModifierActionPerformed(evt);
             }
         });
 
@@ -119,7 +133,7 @@ public class Compte extends javax.swing.JFrame {
 
         jLabel5.setText("Tel");
 
-        jLabel6.setText("Mdp");
+        jLabel6.setText("Nouveau Mdp");
 
         jLabel7.setText("Confirmer");
 
@@ -136,15 +150,6 @@ public class Compte extends javax.swing.JFrame {
             }
         });
 
-        btMDP.setBackground(new java.awt.Color(102, 102, 102));
-        btMDP.setForeground(new java.awt.Color(255, 255, 255));
-        btMDP.setText("changer de mot de passe");
-        btMDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btMDPActionPerformed(evt);
-            }
-        });
-
         btSuppr.setBackground(new java.awt.Color(102, 102, 102));
         btSuppr.setForeground(new java.awt.Color(255, 255, 255));
         btSuppr.setText("Supprimer compte");
@@ -154,6 +159,17 @@ public class Compte extends javax.swing.JFrame {
             }
         });
 
+        btValider.setBackground(new java.awt.Color(102, 102, 102));
+        btValider.setForeground(new java.awt.Color(255, 255, 255));
+        btValider.setText("Valider");
+        btValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btValiderActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Pour valider les changements entrez votre mot de passe :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,62 +177,75 @@ public class Compte extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(146, 146, 146)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGap(100, 100, 100)
-                                                        .addComponent(jLabel3)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(tfMail)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel5))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tfTel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
-                                            .addComponent(pfMdp)
-                                            .addComponent(pfMdpV)))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(status)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(status)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btModifier)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(205, 205, 205)
+                                .addContainerGap()
                                 .addComponent(btListUser))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(205, 205, 205)
-                                .addComponent(btMDP))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addComponent(btValider))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(227, 227, 227)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(btSuppr)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(btSuppr))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(153, 153, 153)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(16, 16, 16)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jLabel4))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addGap(100, 100, 100)
+                                                            .addComponent(jLabel3)))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(tfMail, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(7, 7, 7))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jLabel5)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jLabel8)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                            .addComponent(jLabel6)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                            .addComponent(jLabel7)
+                                                            .addGap(29, 29, 29)))
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(pfMdpV, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(pfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jLabel9)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(97, 97, 97)
+                                        .addComponent(jLabel1)
+                                        .addGap(71, 71, 71))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(91, 91, 91)
+                                                .addComponent(pfAncienMDP, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(123, 123, 123)
+                                                .addComponent(btValider)))
+                                        .addGap(54, 54, 54)))))
+                        .addGap(0, 175, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -225,8 +254,11 @@ public class Compte extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(status))
-                .addGap(18, 18, 18)
+                    .addComponent(status)
+                    .addComponent(btModifier))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btListUser)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -241,22 +273,23 @@ public class Compte extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(btMDP))
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pfMdpV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pfAncienMDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btValider)
-                .addGap(18, 18, 18)
-                .addComponent(btListUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(btSuppr)
                 .addContainerGap())
         );
@@ -281,83 +314,27 @@ public class Compte extends javax.swing.JFrame {
         Connexion connexion = new Connexion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderActionPerformed
+    private void btModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModifierActionPerformed
         // TODO add your handling code here:
+        btValider.setVisible(true);
+        pfAncienMDP.setVisible(true);
+        pfMdp.setVisible(true);
+        pfMdpV.setVisible(true);
+        jLabel6.setVisible(true);
+        jLabel7.setVisible(true);
+        jLabel9.setVisible(true);
         
-        String password = new String(pfMdp.getPassword());
-        String passwordV = new String(pfMdpV.getPassword());
+        tfNom.setEditable(true);
+        tfPrenom.setEditable(true);
+        tfMail.setEditable(true);
+        tfTel.setEditable(true);
         
-        if (!tfMail.getText().matches(EMAIL_PATTERN)) {
-            JOptionPane.showMessageDialog(null,"L'adresse mail n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
-
-        }else if (password.length()<8 && password.length()!=0){
-            JOptionPane.showMessageDialog(null,"Le mot de passe doit contenir 8 charactères minimum)", "Attention", JOptionPane.WARNING_MESSAGE);
-            
-        }else if (password != "" && passwordV == ""){
-            JOptionPane.showMessageDialog(null,"La confirmation du mot de passe n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
-        }else if (password.length()!=0 && passwordV.length()<8){
-            JOptionPane.showMessageDialog(null,"La confirmation du mot de passe n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
-            
-        }else if (!password.equals(passwordV)){
-            JOptionPane.showMessageDialog(null,"Les mots de passes doivent etre identiques)", "Attention", JOptionPane.WARNING_MESSAGE);
-            
-        }else if(tfNom.getText().length()<2){
-            JOptionPane.showMessageDialog(null,"Le nom n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
-            
-        }else if(tfPrenom.getText().length()<2){
-            JOptionPane.showMessageDialog(null,"Le prenom n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
- 
-        }else if(tfTel.getText().length()<9){
-            JOptionPane.showMessageDialog(null,"Le Telephone n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
-        
-        }else {
-        
-        String myPassword = password;
-        // Generate Salt. The generated value can be stored in DB. ;
-        String salt = PasswordUtils.getSalt(30);
-        // Protect user's password. The generated value can be stored in DB.
-        String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
-            
-        nom = tfNom.getText();
-        prenom = tfPrenom.getText();
-        mail = tfMail.getText();
-        tel = tfTel.getText();
-        if(password.length()==0){;
-            sel = null;
-        }else{
-            mdp = mySecurePassword;
-            sel = salt; 
-        }
-        
-        BDD bdd = new BDD();
-        bdd.getConnection();
-        bdd.getMail(mail);
-            if(bdd.MailValide = true){
-                bdd.modif(this);
-
-                tfNom.setText(nom);
-                tfPrenom.setText(prenom);
-                tfTel.setText(tel);
-                tfMail.setText(mail);
-                pfMdp.setText("");
-                pfMdpV.setText("");
-            }
-        }  
-    }//GEN-LAST:event_btValiderActionPerformed
+    }//GEN-LAST:event_btModifierActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
         // TODO add your handling code here:
         ListeUser listeuser = new ListeUser(roleid);
     }//GEN-LAST:event_btListUserActionPerformed
-
-    private void btMDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMDPActionPerformed
-        // TODO add your handling code here:
-        btMDP.setVisible(false);
-        pfMdp.setVisible(true);
-        pfMdpV.setVisible(true);
-        jLabel6.setVisible(true);
-        jLabel7.setVisible(true);
-    }//GEN-LAST:event_btMDPActionPerformed
 
     private void btSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSupprActionPerformed
         // TODO add your handling code here:
@@ -371,6 +348,79 @@ public class Compte extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btSupprActionPerformed
 
+    private void btValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderActionPerformed
+        // TODO add your handling code here:
+        
+        String password = new String(pfMdp.getPassword());
+        String passwordV = new String(pfMdpV.getPassword());
+        String passwordOLD = new String(pfAncienMDP.getPassword());
+        
+        confirmMDP = passwordOLD;
+        
+        if (!tfMail.getText().matches(EMAIL_PATTERN)) {
+            JOptionPane.showMessageDialog(null,"L'adresse mail n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+
+        }else if (password.length()<8 && password.length()!=0){
+            JOptionPane.showMessageDialog(null,"Le nouveau mot de passe doit contenir 8 charactères minimum)", "Attention", JOptionPane.WARNING_MESSAGE);
+            
+        }else if (password != "" && passwordV == ""){
+            JOptionPane.showMessageDialog(null,"La confirmation du nouveau mot de passe n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+        }else if (password.length()!=0 && passwordV.length()<8){
+            JOptionPane.showMessageDialog(null,"La confirmation du nouveau mot de passe n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+            
+        }else if (!password.equals(passwordV)){
+            JOptionPane.showMessageDialog(null,"Les nouveaux mots de passes doivent etre identiques", "Attention", JOptionPane.WARNING_MESSAGE);
+            
+        }else if(tfNom.getText().length()<2){
+            JOptionPane.showMessageDialog(null,"Le nom n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+            
+        }else if(tfPrenom.getText().length()<2){
+            JOptionPane.showMessageDialog(null,"Le prenom n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+ 
+        }else if(tfTel.getText().length()<9){
+            JOptionPane.showMessageDialog(null,"Le Telephone n'est pas valide", "Attention", JOptionPane.WARNING_MESSAGE);
+        
+        }else {
+        
+            if(passwordOLD.length()<8){
+            JOptionPane.showMessageDialog(null,"Votre Mot de passe actuel n'est pas correct", "Attention", JOptionPane.WARNING_MESSAGE);
+         
+            }else{
+                BDD bdd = new BDD();
+                bdd.getConnection();
+                bdd.getMDP(this);
+                
+                String myPassword = password;
+                // Generate Salt. The generated value can be stored in DB. ;
+                String salt = PasswordUtils.getSalt(30);
+                // Protect user's password. The generated value can be stored in DB.
+                String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+
+                if(bdd.Autorise == true){
+                    nom = tfNom.getText();
+                    prenom = tfPrenom.getText();
+                    mail = tfMail.getText();
+                    tel = tfTel.getText();
+                    if(password.length()==0){;
+                        sel = null;
+                    }else{
+                        mdp = mySecurePassword;
+                        sel = salt; 
+                    }
+                    bdd = new BDD();
+                    bdd.getConnection();
+                    bdd.getMail(mail);
+                    if(bdd.MailValide == true){
+                        bdd.modif(this);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"L'adresse mail est déja utilisée", "Attention", JOptionPane.WARNING_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Votre Mot de passe actuel n'est pas correct", "Attention", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+    }//GEN-LAST:event_btValiderActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -408,7 +458,7 @@ public class Compte extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btListUser;
-    private javax.swing.JButton btMDP;
+    private javax.swing.JButton btModifier;
     private javax.swing.JButton btSuppr;
     private javax.swing.JButton btValider;
     private javax.swing.JButton jButton1;
@@ -420,7 +470,9 @@ public class Compte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField pfAncienMDP;
     private javax.swing.JPasswordField pfMdp;
     private javax.swing.JPasswordField pfMdpV;
     private javax.swing.JLabel status;

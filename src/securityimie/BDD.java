@@ -18,13 +18,16 @@ import javax.swing.JOptionPane;
  */
 public class BDD {
     public boolean MailValide = false;
-    
-    Connection con = null;
+    public boolean Autorise = false;
+    public Connection con = null;
     ResultSet insert = null;
     ResultSet mail = null;
     ResultSet user = null;
     ResultSet role = null;
+    ResultSet getMDP = null;
+    ResultSet changePass = null;
     
+    //Connexion à la BDD
     public Connection getConnection(){
         String url = new String("jdbc:mysql://localhost/securityimie");
         try {            
@@ -46,6 +49,7 @@ public class BDD {
         return con;
     }
     
+    //Ajouter un utilisateur
     public ResultSet insert(Inscription inscr){ 
      
         try{
@@ -64,22 +68,26 @@ public class BDD {
         
     }
     
+    //Verrifier si l'adresse mail est disponible
     public ResultSet getMail(String adrmail){ 
         
         try{
         Statement stm = con.createStatement(); 
-        mail = stm.executeQuery("SELECT mail FROM user WHERE mail = \""+adrmail+"\";");
+        mail = stm.executeQuery("SELECT mail, id FROM user WHERE mail = \""+adrmail+"\";");
         System.out.println(mail);
         int i = 0;
             while(mail.next()){
+                String number = mail.getString("id");
+                MDPoublie.id = Integer.parseInt(number);	
                 i = i +1;
             }
             
-            if(i > 0){
-                MailValide = false;
-                JOptionPane.showMessageDialog(null,"L'adresse mail existe déja.", "ERREUR", JOptionPane.ERROR_MESSAGE); 
-            }else{
+            if(i == 1){
                 MailValide = true;
+            }else if(i > 1){
+                MailValide = false;
+            }else if(i == 0){
+                MailValide = false;
             }
         }
         catch (SQLException ex) { 
@@ -90,7 +98,8 @@ public class BDD {
         
     }
     
-    public ResultSet getMdp(Connexion conn){ 
+    //Verrifier la connexion
+    public ResultSet getConnectUser(Connexion conn){ 
         
         String mySecurePassword = "";
         
@@ -140,6 +149,7 @@ public class BDD {
         
     }
     
+    //Récupérer toutes les informations d'un utilisateur
     public ResultSet getUser(Compte com){ 
 
         try{
@@ -162,6 +172,8 @@ public class BDD {
         return user;
        
     }
+    
+    //Récupérer le nom du role
     public ResultSet getRole(Compte com){ 
 
         try{
@@ -181,7 +193,8 @@ public class BDD {
        
     }
     
-        public ResultSet getAllUsers(ListeUser lu, int roleid){ 
+    //Récupérer la liste de tout les utilisateurs ayant un role équivalent 
+    public ResultSet getAllUsers(ListeUser lu, int roleid){ 
 
         try{
         Statement stm = con.createStatement(); 
@@ -213,7 +226,60 @@ public class BDD {
        
     }
     
+    public ResultSet getMDP(Compte com){
+        
+        try{
+            
+        Statement stm = con.createStatement(); 
+        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+com.user+"\";");
+            String mySecurePassword = "";
+            while(getMDP.next()){
+                String myPassword = com.confirmMDP;
+                String salt = getMDP.getString("sel");
+                mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
+            }
+            
+        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+com.user+"\" && mdp = \""+mySecurePassword+"\";");   
+            int i = 0;
+            while(getMDP.next()){
+                i = i+1;
+            }
+        
+            if(i == 1){
+                Autorise = true;
+            }else{
+                Autorise = false;
+            }
+            
+        }
+        catch (SQLException ex) { 
+            System.out.println ("Erreur");            
+            ex.printStackTrace();        
+        }
+        
+        return getMDP;
+    }
     
+    //Changer MDP
+    public ResultSet changePass(int id, String pass){
+        try{
+            Statement stm = con.createStatement(); 
+            
+            String myPassword = pass;
+        
+            String sel = PasswordUtils.getSalt(30);
+        
+            String mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, sel);
+            
+            stm.executeUpdate("UPDATE user SET mdp = \""+mySecurePassword+"\" , sel = \""+sel+"\" WHERE id =" +id+";");
+            
+        }catch(SQLException ex){
+            System.out.println("erreur lors de la modification") ;              
+        }
+        return changePass;
+    }
+    
+    //Modifier utilisateur
     public ResultSet modif(Compte com){ 
  
         try{
@@ -234,6 +300,8 @@ public class BDD {
         
     }
     
+    
+    //Supprimer utilisateur
     public ResultSet delete(int id){ 
         
         try{ 
