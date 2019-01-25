@@ -339,7 +339,9 @@ public class Compte extends javax.swing.JFrame {
     private void btSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSupprActionPerformed
         // TODO add your handling code here:
         SupprCompte suppr = new SupprCompte();
-        BDD bdd = new BDD();
+        if(suppr.suppr == true){
+            dispose();
+        }
     }//GEN-LAST:event_btSupprActionPerformed
 
     private void btValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderActionPerformed

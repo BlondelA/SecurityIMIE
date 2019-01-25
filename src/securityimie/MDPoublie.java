@@ -179,7 +179,7 @@ Properties props = new Properties();
                         
                         JOptionPane.showMessageDialog(null,"Votre nouveau mot de passe vous à été transmis par mail, \n\n "
                                 + "pensez à verrifier vos spams !", "Attention", JOptionPane.WARNING_MESSAGE);
-			System.out.println("Done");
+			System.out.println("Envoyé");
                         dispose();
 
                     } catch (AddressException ex) {

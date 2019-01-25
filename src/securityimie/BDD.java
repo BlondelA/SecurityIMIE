@@ -74,7 +74,7 @@ public class BDD {
         try{
         Statement stm = con.createStatement(); 
         mail = stm.executeQuery("SELECT mail, id FROM user WHERE mail = \""+adrmail+"\";");
-        System.out.println(mail);
+
         int i = 0;
             while(mail.next()){
                 String number = mail.getString("id");
@@ -83,11 +83,11 @@ public class BDD {
             }
             
             if(i == 1){
-                MailValide = true;
+                MailValide = false;
             }else if(i > 1){
                 MailValide = false;
             }else if(i == 0){
-                MailValide = false;
+                MailValide = true;
             }
         }
         catch (SQLException ex) { 
@@ -116,7 +116,6 @@ public class BDD {
         }
         
         mail = stm.executeQuery("SELECT mail, mdp, id, role FROM user WHERE mail = \""+conn.mail+"\" && mdp = \""+mySecurePassword+"\";");
-        //System.out.println(mail);
         int i = 0;
         String id;
         String role;

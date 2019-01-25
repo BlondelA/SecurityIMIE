@@ -16,6 +16,9 @@ public class SupprCompte extends javax.swing.JFrame {
     /**
      * Creates new form SupprCompte
      */
+    
+    public boolean suppr = false;
+    
     public SupprCompte() {
         initComponents();
         this.setVisible(true);
@@ -117,6 +120,7 @@ public class SupprCompte extends javax.swing.JFrame {
                 if(dialogResult == JOptionPane.YES_OPTION){
                     bdd.getConnection();
                     bdd.delete(Compte.user);
+                    suppr = true;
                     dispose();
                     Connexion conn = new Connexion();
                 }
