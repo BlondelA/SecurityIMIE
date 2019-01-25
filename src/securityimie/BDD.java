@@ -226,20 +226,20 @@ public class BDD {
        
     }
     
-    public ResultSet getMDP(Compte com){
+    public ResultSet getMDP(int id, String confirmMDP){
         
         try{
             
         Statement stm = con.createStatement(); 
-        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+com.user+"\";");
+        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+id+"\";");
             String mySecurePassword = "";
             while(getMDP.next()){
-                String myPassword = com.confirmMDP;
+                String myPassword = confirmMDP;
                 String salt = getMDP.getString("sel");
                 mySecurePassword = PasswordUtils.generateSecurePassword(myPassword, salt);
             }
             
-        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+com.user+"\" && mdp = \""+mySecurePassword+"\";");   
+        getMDP = stm.executeQuery("SELECT id, mdp, sel FROM user WHERE id = \""+id+"\" && mdp = \""+mySecurePassword+"\";");   
             int i = 0;
             while(getMDP.next()){
                 i = i+1;

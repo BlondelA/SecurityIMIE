@@ -17,7 +17,7 @@ public class Compte extends javax.swing.JFrame {
      * Creates new form Compte
      */
    
-    public int user = 0;
+    public static int user = 0;
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public String mail;
     public String nom;
@@ -338,14 +338,8 @@ public class Compte extends javax.swing.JFrame {
 
     private void btSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSupprActionPerformed
         // TODO add your handling code here:
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Etes-vous certains de vouloir supprimer votre compte ?","Attention",JOptionPane.YES_NO_OPTION);
-        if(dialogResult == JOptionPane.YES_OPTION){
-            BDD bdd = new BDD();
-            bdd.getConnection();
-            bdd.delete(user);
-            dispose();
-            Connexion conn = new Connexion();
-        }
+        SupprCompte suppr = new SupprCompte();
+        BDD bdd = new BDD();
     }//GEN-LAST:event_btSupprActionPerformed
 
     private void btValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderActionPerformed
@@ -388,7 +382,7 @@ public class Compte extends javax.swing.JFrame {
             }else{
                 BDD bdd = new BDD();
                 bdd.getConnection();
-                bdd.getMDP(this);
+                bdd.getMDP(user, confirmMDP);
                 
                 String myPassword = password;
                 // Generate Salt. The generated value can be stored in DB. ;
